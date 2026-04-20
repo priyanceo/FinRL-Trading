@@ -62,13 +62,6 @@ datadate    tradedate    trade_price    y_return = ln(next/this)
 | `ln(price_2025-12-31 / price_2025-09-30)` | On 2025-09-30 the Q3 report is not yet public; you can't act on it until tradedate 2025-12-01 | Buy at tradedate, not quarter-end |
 | y_return = 0 | Frozen price from delisted ticker whose adj_close_q was never updated | Set to NULL |
 
-> **Personal note:** I initially made the adj_close_q mistake on my first pass — the tradedate offset is easy to overlook but makes a meaningful difference in backtest results, especially around earnings season volatility. Worth double-checking this every time the pipeline is re-run on a refreshed dataset.
+> **Personal note:** I initially made the adj_close_q mistake on my first pass — the tradedate offset is easy to overlook but makes a meaningful difference in backtest results, especially around earnings season volatility.
 
-### Pre-Run Verification (MUST execute before every model run)
-
-```python
-import sqlite3, pandas as pd, numpy as np
-conn = sqlite3.connect('data/finrl_trading.db')
-df = pd.read_sql('''
-    SELECT ticker, datadate, trade
-```
+> **Personal note (2025-06-10):** Also worth double-checking holiday edge cases — e.g. if tradedate lands on 2025-09-01 (Labor Day), `actual_tradedate` should roll forward to 2025-09-02. I got burned by this once when the NYSE calendar wasn't fully loaded and the price lookup silently returned NaN instead of raising an error. Added an explicit assert `actual_tradedate is not NaT` after the calendar join as a safeguard.
