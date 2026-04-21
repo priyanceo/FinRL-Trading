@@ -35,7 +35,8 @@ COPY .env.example* ./
 RUN pip install -e .
 
 # Create necessary directories
-RUN mkdir -p data logs
+# Also create a personal scratch dir for experiment outputs and notebooks
+RUN mkdir -p data logs experiments
 
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash app \
