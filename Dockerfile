@@ -28,7 +28,8 @@ RUN pip install --no-cache-dir --upgrade pip && \
 COPY src/ ./src/
 COPY setup.py .
 COPY README.md .
-COPY .env* ./
+# Note: only copy .env.example if present; avoid accidentally baking real secrets into the image
+COPY .env.example* ./
 
 # Install the package in development mode
 RUN pip install -e .
