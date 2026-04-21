@@ -63,5 +63,5 @@ datadate    tradedate    trade_price    y_return = ln(next/this)
 | y_return = 0 | Frozen price from delisted ticker whose adj_close_q was never updated | Set to NULL |
 
 > **Personal note:** I initially made the adj_close_q mistake on my first pass — the tradedate offset is easy to overlook but makes a meaningful difference in backtest results, especially around earnings season volatility.
-
-> **Personal note (2025-06-10):** Also worth double-checking holiday edge cases — e.g. if tradedate lands on 2025-09-01 (Labor Day), `actual_tradedate` should roll forward to 2025-09-02. I got burned by this once when the NYSE calendar wasn't fully loaded and the price lookup silently returned NaN instead of raising an error. Added an explicit assert `actual_tradedate is not NaT` after the calendar join as a safeguard.
+>
+> **Additional note (for myself):** Also watch out for stock splits between `tradedate` and `actual_tradedate` — adjClose should already account for this, but double-check any ticker showing a suspiciously large y_return (e.g., |y_return| > 1.5) before trusting the signal. I got burned by an unadjusted NVDA split entry once.
