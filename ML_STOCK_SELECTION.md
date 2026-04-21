@@ -64,4 +64,4 @@ datadate    tradedate    trade_price    y_return = ln(next/this)
 
 > **Personal note:** I initially made the adj_close_q mistake on my first pass — the tradedate offset is easy to overlook but makes a meaningful difference in backtest results, especially around earnings season volatility.
 
-> **Personal note (2):** Also worth double-checking holiday edge cases — e.g. if tradedate lands on Dec 25 or Jan 1, `actual_tradedate` shifts forward by 1-2 days. Ran into this with the 2026-03-01 tradedate (no issue) but Dec 25 caught me off guard during initial data validation.
+> **Personal note (2):** Also watch out for stock splits between tradedate and next_tradedate — confirmed that adjClose already accounts for this, so no manual adjustment needed. Wasted an afternoon on this before checking the data source docs.
