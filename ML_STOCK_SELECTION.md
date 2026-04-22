@@ -63,5 +63,5 @@ datadate    tradedate    trade_price    y_return = ln(next/this)
 | y_return = 0 | Frozen price from delisted ticker whose adj_close_q was never updated | Set to NULL |
 
 > **Personal note:** I initially made the adj_close_q mistake on my first pass — the tradedate offset is easy to overlook but makes a meaningful difference in backtest results, especially around earnings season volatility.
-
-> **Personal note (2):** Also watch out for stock splits between tradedate and next_tradedate — confirmed that adjClose already accounts for this, so no manual adjustment needed. Wasted an afternoon on this before checking the data source docs.
+>
+> **Additional note (personal reminder):** Also watch out for stock splits between `tradedate` and `actual_tradedate` — adjClose should handle this automatically, but double-check any ticker that shows an unusually large y_return (|y_return| > 1.5) as it may indicate a split adjustment issue rather than a genuine price move.
