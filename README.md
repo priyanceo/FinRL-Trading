@@ -30,6 +30,8 @@
 ---
 
 > **Personal fork notes:** I'm using this primarily to experiment with the portfolio allocation module ($\mathcal{A}$) and compare different risk overlay strategies. Main branch tracks upstream; my experiments live in the `experiments/` branch.
+>
+> **TODO:** Benchmark CVaR-based risk overlay vs. max-drawdown constraint on the same S&P 500 universe — see `experiments/risk_overlay_comparison.ipynb` (WIP).
 
 ## About
 
@@ -41,6 +43,4 @@ Introduced in our paper *"FinRL-X: An AI-Native Modular Infrastructure for Quant
 
 At its core is a **weight-centric architecture** — the target portfolio weight vector is the sole interface contract between strategy logic and downstream execution:
 
-$$w_t = \mathcal{R}_t\bigl(\mathcal{T}_t\bigl(\mathcal{A}_t\bigl(\mathcal{S}_t(\mathcal{X}_{\le t})\bigr)\bigr)\bigr)$$
-
-where $\mathcal{S}$ denotes stock selection, $\mathcal{A}$ portfolio allocation, $\mathcal{T}$ timing adjustment, and $\mathcal{R}$ portfolio-level risk overlay. Each transformation is contract-preserving — you can swap any mod
+$$w_t = \mathcal{R}_t\bigl(\mathcal{T}_t\bigl(\mathcal{A}_t\bigl(\mathcal{S}_t(\mathcal{X}_{\le t})\bi
