@@ -17,7 +17,7 @@ alpaca-trade-api>=3.0.0
 
 # Reinforcement learning
 stable-baselines3>=2.1.0
-gym>=0.26.0
+# Note: using gymnasium only, gym is deprecated upstream
 gymnasium>=0.29.0
 
 # Visualization
