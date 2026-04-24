@@ -36,7 +36,7 @@ RUN pip install -e .
 
 # Create necessary directories
 # Also create a personal scratch dir for experiment outputs and notebooks
-RUN mkdir -p data logs experiments
+RUN mkdir -p data logs experiments notebooks
 
 # Create non-root user
 RUN useradd --create-home --shell /bin/bash app \
@@ -44,7 +44,8 @@ RUN useradd --create-home --shell /bin/bash app \
 USER app
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=30s --start-period=5s --retries=3 \
+# Increased start-period to 15s since pip install -e can be slow on first container start
+HEALTHCHECK --interval=30s --timeout=30s --start-period=15s --retries=3 \
     CMD python -c "import sys; sys.path.insert(0, '/app/src'); import config; print('Health check passed')" || exit 1
 
 # Expose port for web interface
