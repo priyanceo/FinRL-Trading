@@ -64,4 +64,4 @@ datadate    tradedate    trade_price    y_return = ln(next/this)
 
 > **Personal note:** I initially made the adj_close_q mistake on my first pass — the tradedate offset is easy to overlook but makes a meaningful difference in backtest results, especially around earnings season volatility.
 >
-> **Additional note (personal reminder):** Also watch out for stock splits between `tradedate` and `actual_tradedate` — adjClose should handle this automatically, but double-check any ticker that shows an unusually large y_return (|y_return| > 1.5) as it may indicate a split adjustment issue rather than a genuine price move.
+> **Reminder to self:** Also double-check holiday edge cases around the June 1 and September 1 tradedates — Labor Day falls near Sep 1 most years, so `actual_tradedate` frequently shifts to Sep 2 or later. Burned by this once on the 2022 cohort.
